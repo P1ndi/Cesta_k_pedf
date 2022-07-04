@@ -1,0 +1,35 @@
+String input_path, ext, subor;
+
+// zisti cestu k suborom
+input_path = WorkFlow.Parameter["DataInput1","dif"].Directory;
+
+
+
+// zoznam suborov v definovanom priecinku
+File.FileInfoList fileList;
+File.list(fileList,File.ListParam.Files,input_path);
+
+
+//
+for (Int i=0; i<fileList.Size;i++)
+   { 
+   
+   // pripona/koncovka/extension suboru
+   ext = fileList[i].Ext;
+   subor = fileList[i].Name.toLowerCase();
+
+   
+   // filtruj len PDF subory
+   if(ext.toLowerCase() != "pdf")
+      continue;
+   
+
+
+   
+   // odosli len subory pre PVH
+   Output_0.Records.subor = fileList[i].Location;
+
+   
+   Output_0.Records.commit();
+   }
+
